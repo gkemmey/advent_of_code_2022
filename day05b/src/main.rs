@@ -50,8 +50,13 @@ impl Dock {
   }
 
   fn apply(&mut self, instruction: Instruction) {
+    let mut ids: Vec<char> = vec![];
+
     for _i in 0..instruction.n_containers {
-      let id = self.pop_container(instruction.from).unwrap();
+      ids.push(self.pop_container(instruction.from).unwrap());
+    }
+
+    for id in ids.into_iter().rev() {
       self.push_container(instruction.to, id);
     }
   }
